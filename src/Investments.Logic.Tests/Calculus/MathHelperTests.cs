@@ -10,15 +10,15 @@ namespace Investments.Logic.Tests.Calculus
 		[Test]
 		public void IsApproxOne_CloseEnough_ReturnsTrue()
 		{
-			Assert.IsTrue(MathHelper.IsApproxOne(1.02m));
-			Assert.IsTrue(MathHelper.IsApproxOne(0.98m));
+			Assert.That(MathHelper.IsApproxOne(1.02m), Is.True);
+			Assert.That(MathHelper.IsApproxOne(0.98m), Is.True);
 		}
 
 		[Test]
 		public void IsApproxOne_NotCloseEnough_ReturnsFalse()
 		{
-			Assert.IsFalse(MathHelper.IsApproxOne(1.12m));
-			Assert.IsFalse(MathHelper.IsApproxOne(0.88m));
+			Assert.That(MathHelper.IsApproxOne(1.12m), Is.False);
+			Assert.That(MathHelper.IsApproxOne(0.88m), Is.False);
 		}
 
 		[Test]
@@ -31,13 +31,13 @@ namespace Investments.Logic.Tests.Calculus
 
 			weights = weights.Redistribute();
 
-			Assert.AreEqual(weights["TLV"], 0.3);
-			Assert.AreEqual(weights["FP"], 0.6);
-			Assert.AreEqual(weights["EL"], 0.1);
+			Assert.That(weights["TLV"], Is.EqualTo(0.3));
+			Assert.That(weights["FP"], Is.EqualTo(0.6));
+			Assert.That(weights["EL"], Is.EqualTo(0.1));
 		}
 
 		[Test]
-		public void Redistribute_TotalWeightLessThanOne_RedistributedWeightIsAprroxOne()
+		public void Redistribute_TotalWeightLessThanOne_RedistributedWeightIsApproxOne()
 		{
 			var weights = new StockWeights
 			{
@@ -46,7 +46,7 @@ namespace Investments.Logic.Tests.Calculus
 
 			weights = weights.Redistribute();
 
-			Assert.IsTrue(weights.Sum(w => w.Value).IsApproxOne());
+			Assert.That(weights.Sum(w => w.Value).IsApproxOne(), Is.True);
 		}
 	}
 }

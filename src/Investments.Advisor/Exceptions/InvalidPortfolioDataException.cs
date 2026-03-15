@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace Investments.Advisor.Exceptions
 {
@@ -14,10 +13,6 @@ namespace Investments.Advisor.Exceptions
 		}
 
 		public InvalidPortfolioDataException(string? message, Exception? innerException) : base(message, innerException)
-		{
-		}
-
-		protected InvalidPortfolioDataException(SerializationInfo info, StreamingContext context) : base(info, context)
 		{
 		}
 	}

@@ -19,9 +19,9 @@ namespace Investments.Logic.Tests.Weights
 			var strategy = new FollowTargetAdjustmentStrategy();
 			var toBuyWeights = strategy.AdjustWeights(currentWeights, targetWeights, toBuyInverseRatio: 0);
 
-			Assert.AreEqual(0.2m, toBuyWeights["TLV"]);
-			Assert.AreEqual(0.3m, toBuyWeights["FP"]);
-			Assert.AreEqual(0.5m, toBuyWeights["EL"]);
+			Assert.That(toBuyWeights["TLV"], Is.EqualTo(0.2m));
+			Assert.That(toBuyWeights["FP"], Is.EqualTo(0.3m));
+			Assert.That(toBuyWeights["EL"], Is.EqualTo(0.5m));
 		}
 
 		[Test]
@@ -36,13 +36,13 @@ namespace Investments.Logic.Tests.Weights
 			var strategy = new FollowTargetAdjustmentStrategy();
 			var toBuyWeights = strategy.AdjustWeights(currentWeights, targetWeights, toBuyInverseRatio: 1);
 
-			Assert.AreEqual(0.2m, toBuyWeights["TLV"]);
-			Assert.AreEqual(0.4m, toBuyWeights["FP"]);
-			Assert.AreEqual(0.4m, toBuyWeights["EL"]);
+			Assert.That(toBuyWeights["TLV"], Is.EqualTo(0.2m));
+			Assert.That(toBuyWeights["FP"], Is.EqualTo(0.4m));
+			Assert.That(toBuyWeights["EL"], Is.EqualTo(0.4m));
 		}
 
 		[Test]
-		public void AdjustWeights_InverseToBuyRatioVeryHigh_ToBuyWeightsSumEqualsOneIsCorrecltyEnforced()
+		public void AdjustWeights_InverseToBuyRatioVeryHigh_ToBuyWeightsSumEqualsOneIsCorrectlyEnforced()
 		{
 			var currentWeights = new StockWeights
 			{ { "TLV", 0.2m }, { "FP", 0.2m }, { "EL", 0.6m } };
@@ -53,7 +53,7 @@ namespace Investments.Logic.Tests.Weights
 			var strategy = new FollowTargetAdjustmentStrategy();
 			var toBuyWeights = strategy.AdjustWeights(currentWeights, targetWeights, toBuyInverseRatio: 10);
 
-			Assert.IsTrue(toBuyWeights.Sum(w => w.Value).IsApproxOne());
+			Assert.That(toBuyWeights.Sum(w => w.Value).IsApproxOne(), Is.True);
 		}
 
 		[Test]
@@ -68,10 +68,10 @@ namespace Investments.Logic.Tests.Weights
 			var strategy = new FollowTargetAdjustmentStrategy();
 			var toBuyWeights = strategy.AdjustWeights(currentWeights, targetWeights, toBuyInverseRatio: 2);
 
-			Assert.AreEqual(0.2m, toBuyWeights["TLV"]);
-			Assert.AreEqual(0.2m, toBuyWeights["FP"]);
-			Assert.AreEqual(0.3m, toBuyWeights["EL"]);
-			Assert.AreEqual(0.3m, toBuyWeights["SNG"]);
+			Assert.That(toBuyWeights["TLV"], Is.EqualTo(0.2m));
+			Assert.That(toBuyWeights["FP"], Is.EqualTo(0.2m));
+			Assert.That(toBuyWeights["EL"], Is.EqualTo(0.3m));
+			Assert.That(toBuyWeights["SNG"], Is.EqualTo(0.3m));
 		}
 
 		[Test]
@@ -86,7 +86,7 @@ namespace Investments.Logic.Tests.Weights
 			var strategy = new FollowTargetAdjustmentStrategy();
 			var toBuyWeights = strategy.AdjustWeights(currentWeights, targetWeights, toBuyInverseRatio: 2);
 
-			Assert.IsFalse(toBuyWeights.ContainsKey("TLV"));
+			Assert.That(toBuyWeights.ContainsKey("TLV"), Is.False);
 		}
 	}
 }

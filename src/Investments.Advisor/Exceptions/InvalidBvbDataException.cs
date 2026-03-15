@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace Investments.Advisor.Exceptions
 {
@@ -14,10 +13,6 @@ namespace Investments.Advisor.Exceptions
 		}
 
 		public InvalidBvbDataException(string message, Exception innerException) : base(message, innerException)
-		{
-		}
-
-		protected InvalidBvbDataException(SerializationInfo info, StreamingContext context) : base(info, context)
 		{
 		}
 	}

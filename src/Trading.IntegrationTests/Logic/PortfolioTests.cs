@@ -36,7 +36,7 @@ namespace Trading.IntegrationTests.Logic
 			var toBuyStocks = portfolio.DeriveToBuyStocks(currentStocks);
 			var investedAmount = toBuyStocks.Sum(s => s.Count * s.Price);
 
-			Assert.IsTrue((toBuyAmount / investedAmount).IsApproxOne());
+			Assert.That((toBuyAmount / investedAmount).IsApproxOne(), Is.True);
 		}
 	}
 }

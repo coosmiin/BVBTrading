@@ -20,8 +20,8 @@ namespace Investments.Logic.Tests.Weights
 			var strategy = new MinOrderValueCutOffStrategy(new FollowTargetAdjustmentStrategy(), 0.1m);
 			var toBuyWeights = strategy.AdjustWeights(currentWeights, targetWeights, toBuyInverseRatio: 2);
 
-			Assert.IsFalse(toBuyWeights.ContainsKey("TLV"));
-			Assert.IsTrue(toBuyWeights.Sum(w => w.Value).IsApproxOne());
+			Assert.That(toBuyWeights.ContainsKey("TLV"), Is.False);
+			Assert.That(toBuyWeights.Sum(w => w.Value).IsApproxOne(), Is.True);
 		}
 	}
 }

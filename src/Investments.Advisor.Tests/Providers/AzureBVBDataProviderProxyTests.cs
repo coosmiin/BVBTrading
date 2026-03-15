@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -23,14 +23,14 @@ namespace Investments.Advisor.Tests.Providers
 
 			var result = await provider.GetBvbStocksAsync("BET");
 
-			Assert.AreEqual(2, result.Length);
-			Assert.AreEqual("FP", result[0].Symbol);
-			Assert.AreEqual(1.345, result[0].Price);
-			Assert.AreEqual(0.2305, result[0].Weight);
+			Assert.That(result.Length, Is.EqualTo(2));
+			Assert.That(result[0].Symbol, Is.EqualTo("FP"));
+			Assert.That(result[0].Price, Is.EqualTo(1.345));
+			Assert.That(result[0].Weight, Is.EqualTo(0.2305));
 		}
 
 		[Test]
-		public void GetBvbStocksAsync_InvalidCase_ThrowsException()
+		public async Task GetBvbStocksAsync_InvalidCase_ThrowsException()
 		{
 			var httpClient = BuildHttpClient(File.ReadAllText(@"TestData/bvb-index.pascal-case.json"));
 
@@ -40,7 +40,7 @@ namespace Investments.Advisor.Tests.Providers
 		}
 
 		[Test]
-		public void GetBvbStocksAsync_EmptyArrayResult_ThrowsException()
+		public async Task GetBvbStocksAsync_EmptyArrayResult_ThrowsException()
 		{
 			var httpClient = BuildHttpClient("[]");
 
@@ -68,3 +68,4 @@ namespace Investments.Advisor.Tests.Providers
 		}
 	}
 }
+
