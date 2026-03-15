@@ -1,18 +1,17 @@
-﻿using Investments.Advisor.AzureProxies;
+using Investments.Advisor.AzureProxies;
 using Investments.Advisor.Providers;
 using Investments.Advisor.Trading;
-using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Net.Http;
 using Trading.BvbScraper;
 using Trading.Functions.Environments;
 
-[assembly: FunctionsStartup(typeof(Trading.Functions.Startup))]
-
 namespace Trading.Functions
 {
-	public class Startup : FunctionsStartup
+	public class Program
 	{
 		private const string BVB_HTTP_CLIENT = "BvbHttpClient";
 		private const string TRADE_AUTOMATION_CLIENT = "TradeAutomationHttpClient";
@@ -20,61 +19,66 @@ namespace Trading.Functions
 		private const string AZURE_TRADE_ORCHESTRATION_KEY_NAME = "Azure-TradeOrchestrationFuncKey";
 		private const string AZURE_TRADE_AUTOMATION_KEY_NAME = "Azure-TradeAutomationFuncKey";
 
-		public override void Configure(IFunctionsHostBuilder builder)
-		{
-			var services = builder.Services;
+		public static void Main()
+			{
+				var host = new HostBuilder()
+					.ConfigureFunctionsWorkerDefaults()
+					.ConfigureServices(services =>
+					{
+						services.AddLogging();
 
-			services
-				.AddSingleton(new StockScraper())
-				.AddSingleton<IEnvironment>(ResolveEnvironment)
-				.AddSingleton<IBvbDataProvider>(ResolveBvbDataProvider)
-				.AddSingleton<ITradeAutomation>(ResolveTradeAutomation)
-				.AddSingleton<ITradeAdvisor>(ResolveTradeAdvisor)
-				.AddLogging();
+						services
+							.AddSingleton(new StockScraper())
+							.AddSingleton<IEnvironment>(ResolveEnvironment)
+							.AddSingleton<IBvbDataProvider>(ResolveBvbDataProvider)
+							.AddSingleton<ITradeAutomation>(ResolveTradeAutomation)
+							.AddSingleton<ITradeAdvisor>(ResolveTradeAdvisor);
 
-			services.AddHttpClient(BVB_HTTP_CLIENT, ConfigureTradeOrchestrationClient);
-			services.AddHttpClient(TRADE_AUTOMATION_CLIENT, ConfigureTradeAutomationClient);
-			services.AddHttpClient(TRADE_ADVISOR_CLIENT, ConfigureTradeOrchestrationClient);
+						services.AddHttpClient(BVB_HTTP_CLIENT, ConfigureTradeOrchestrationClient);
+						services.AddHttpClient(TRADE_AUTOMATION_CLIENT, ConfigureTradeAutomationClient);
+						services.AddHttpClient(TRADE_ADVISOR_CLIENT, ConfigureTradeOrchestrationClient);
 
-			services
-				.AddSingleton<ITradeSessionOrchestrator, TradeSessionOrchestrator>();
-		}
+						services.AddSingleton<ITradeSessionOrchestrator, TradeSessionOrchestrator>();
+					})
+					.Build();
 
-		private IBvbDataProvider ResolveBvbDataProvider(IServiceProvider provider)
+				host.Run();
+			}
+
+		private static IBvbDataProvider ResolveBvbDataProvider(IServiceProvider provider)
 		{
 			var httpClient = provider.GetRequiredService<IHttpClientFactory>().CreateClient(BVB_HTTP_CLIENT);
 			return new AzureBvbDataProviderProxy(httpClient, GetEnvironmentVariable(AZURE_TRADE_ORCHESTRATION_KEY_NAME));
 		}
 
-		private ITradeAutomation ResolveTradeAutomation(IServiceProvider provider)
+		private static ITradeAutomation ResolveTradeAutomation(IServiceProvider provider)
 		{
 			var httpClient = provider.GetRequiredService<IHttpClientFactory>().CreateClient(TRADE_AUTOMATION_CLIENT);
 			return new AzureTradeAutomationProxy(httpClient, GetEnvironmentVariable(AZURE_TRADE_AUTOMATION_KEY_NAME));
 		}
 
-		private ITradeAdvisor ResolveTradeAdvisor(IServiceProvider provider)
+		private static ITradeAdvisor ResolveTradeAdvisor(IServiceProvider provider)
 		{
 			var httpClient = provider.GetRequiredService<IHttpClientFactory>().CreateClient(TRADE_ADVISOR_CLIENT);
 			return new AzureTradeAdvisorProxy(httpClient, GetEnvironmentVariable(AZURE_TRADE_ORCHESTRATION_KEY_NAME));
 		}
 
-		private void ConfigureTradeAutomationClient(IServiceProvider provider, HttpClient client)
+		private static void ConfigureTradeAutomationClient(IServiceProvider provider, HttpClient client)
 		{
 			var environment = provider.GetService<IEnvironment>();
 			client.BaseAddress = environment?.TradeAutomationFunctionsHost;
 		}
 
-		private void ConfigureTradeOrchestrationClient(IServiceProvider provider, HttpClient client)
+		private static void ConfigureTradeOrchestrationClient(IServiceProvider provider, HttpClient client)
 		{
 			var environment = provider.GetService<IEnvironment>();
 			client.BaseAddress = environment?.TradingFunctionsHost;
 		}
 
-		private IEnvironment ResolveEnvironment(IServiceProvider provider)
+		private static IEnvironment ResolveEnvironment(IServiceProvider provider)
 		{
 			bool isDevelopment = Environment.GetEnvironmentVariable("AZURE_FUNCTIONS_ENVIRONMENT") == "Development";
-
-			return isDevelopment ? new LocalEnvironment() as IEnvironment : new ProductionEnvironment();
+			return isDevelopment ? new LocalEnvironment() : new ProductionEnvironment();
 		}
 
 		private static string GetEnvironmentVariable(string key)

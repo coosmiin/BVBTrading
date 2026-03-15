@@ -8,3 +8,5 @@
 **/src/*/local.settings.json
 **/src/**/*.user
 **/src/**/PublishProfiles
+**/src/**/Properties/launchSettings.json
+**/.vscode
