@@ -21,7 +21,7 @@ namespace Trading.IntegrationTests.Logic
 			var adjustedWeights = 
 				strategy.AdjustWeights(currentWeights, targetWeights, portfolioValue / toBuyAmount);
 
-			Assert.IsTrue(adjustedWeights.Sum(w => w.Value).IsApproxOne());
+			Assert.That(adjustedWeights.Sum(w => w.Value).IsApproxOne(), Is.True);
 		}
 
 		[Test]
@@ -35,7 +35,7 @@ namespace Trading.IntegrationTests.Logic
 			var adjustedWeights =
 				strategy.AdjustWeights(currentWeights, targetWeights, portfolioValue / toBuyAmount);
 
-			Assert.IsTrue(adjustedWeights.Sum(w => w.Value).IsApproxOne());
+			Assert.That(adjustedWeights.Sum(w => w.Value).IsApproxOne(), Is.True);
 		}
 	}
 }

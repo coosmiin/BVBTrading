@@ -24,7 +24,7 @@ namespace Investments.Logic.Tests.Portfolios
 				.UseToBuyAmount(9)
 				.Build();
 
-			Assert.Zero(portfolio.TotalValue);
+			Assert.That(portfolio.TotalValue, Is.Zero);
 		}
 
 		[Test]
@@ -42,7 +42,7 @@ namespace Investments.Logic.Tests.Portfolios
 				.UseToBuyAmount(20)
 				.Build();
 
-			Assert.AreEqual(10, portfolio.TotalValue);
+			Assert.That(portfolio.TotalValue, Is.EqualTo(10));
 		}
 
 		[Test]
@@ -60,11 +60,11 @@ namespace Investments.Logic.Tests.Portfolios
 				.UseToBuyAmount(119)
 				.Build();
 
-			Assert.AreEqual(2, portfolio["EL"].Count);
-			Assert.AreEqual(2, portfolio["FP"].Count);
-			Assert.AreEqual(1, portfolio["TLV"].Count);
+			Assert.That(portfolio["EL"].Count, Is.EqualTo(2));
+			Assert.That(portfolio["FP"].Count, Is.EqualTo(2));
+			Assert.That(portfolio["TLV"].Count, Is.EqualTo(1));
 
-			Assert.AreEqual(110, portfolio.TotalValue);
+			Assert.That(portfolio.TotalValue, Is.EqualTo(110));
 		}
 
 		[Test]
@@ -177,11 +177,11 @@ namespace Investments.Logic.Tests.Portfolios
 				.UseToBuyAmount(140)
 				.Build();
 
-			Assert.AreEqual(4, portfolio["EL"].Count);
-			Assert.AreEqual(4, portfolio["FP"].Count);
-			Assert.AreEqual(4, portfolio["TLV"].Count);
+			Assert.That(portfolio["EL"].Count, Is.EqualTo(4));
+			Assert.That(portfolio["FP"].Count, Is.EqualTo(4));
+			Assert.That(portfolio["TLV"].Count, Is.EqualTo(4));
 
-			Assert.AreEqual(240, portfolio.TotalValue);
+			Assert.That(portfolio.TotalValue, Is.EqualTo(240));
 		}
 
 		[Test]
@@ -200,7 +200,7 @@ namespace Investments.Logic.Tests.Portfolios
 				.UseMinOrderValue(31)
 				.Build();
 
-			Assert.IsFalse(portfolio.Any(s => s.Symbol == "TLV"));
+			Assert.That(portfolio.Any(s => s.Symbol == "TLV"), Is.False);
 		}
 	}
 }

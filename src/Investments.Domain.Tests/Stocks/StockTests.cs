@@ -15,26 +15,26 @@ namespace Investments.Domain.Tests.Stocks
 		[Test]
 		public void Addition_StockCountsAreCorrectlyAdded()
 		{
-			Assert.AreEqual(7, (new Stock("FP") { Count = 5 } + new Stock("FP") { Count = 2 }).Count);
+			Assert.That((new Stock("FP") { Count = 5 } + new Stock("FP") { Count = 2 }).Count, Is.EqualTo(7));
 		}
 
 		[Test]
 		public void Addition_PricesAreDifferent_SecondPriceIsLeading()
 		{
-			Assert.AreEqual(2, (new Stock("FP") { Price = 5 } + new Stock("FP") { Price = 2 }).Price);
+			Assert.That((new Stock("FP") { Price = 5 } + new Stock("FP") { Price = 2 }).Price, Is.EqualTo(2));
 		}
 
 		[Test]
 		public void Addition_WeightIsReset()
 		{
-			Assert.AreEqual(0, (new Stock("FP") { Weight = 0.2m } + new Stock("FP") { Weight = 0.3m }).Weight);
+			Assert.That((new Stock("FP") { Weight = 0.2m } + new Stock("FP") { Weight = 0.3m }).Weight, Is.EqualTo(0));
 		}
 
 		[Test]
 		public void UnarySubstraction_StockCountIsDecreasedByOne()
 		{
 			var stock = new Stock("FP") { Count = 3 };
-			Assert.AreEqual(2, --stock.Count);
+			Assert.That(--stock.Count, Is.EqualTo(2));
 		}
 
 	}

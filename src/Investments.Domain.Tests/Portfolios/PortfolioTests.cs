@@ -13,7 +13,7 @@ namespace Investments.Domain.Tests.Portfolios
 		{
 			var portfolio = new Portfolio();
 
-			Assert.False(portfolio.Any());
+			Assert.That(portfolio.Any(), Is.False);
 		}
 
 		[Test]
@@ -21,13 +21,13 @@ namespace Investments.Domain.Tests.Portfolios
 		{
 			var portfolio = new Portfolio(new[] { new Stock("FP") { Count = 100, Price = 10 } });
 
-			Assert.AreEqual(100, portfolio["FP"].Count);
+			Assert.That(portfolio["FP"].Count, Is.EqualTo(100));
 		}
 
 		[Test]
 		public void TotalValue_EmptyPortfolio_IsZero()
 		{
-			Assert.AreEqual(0, new Portfolio().TotalValue);
+			Assert.That(new Portfolio().TotalValue, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -40,7 +40,7 @@ namespace Investments.Domain.Tests.Portfolios
 					new Stock("TVL") { Price = 3, Count = 7, Weight = 51 }
 				});
 
-			Assert.AreEqual(41, portfolio.TotalValue);
+			Assert.That(portfolio.TotalValue, Is.EqualTo(41));
 		}
 
 		[Test]
@@ -53,9 +53,9 @@ namespace Investments.Domain.Tests.Portfolios
 				new Stock("TLV") { Count = 1, Price = 10 }
 			});
 
-			Assert.AreEqual(0.5m, portfolio["EL"].Weight);
-			Assert.AreEqual(0.33m, portfolio["FP"].Weight);
-			Assert.AreEqual(0.17m, portfolio["TLV"].Weight);
+			Assert.That(portfolio["EL"].Weight, Is.EqualTo(0.5m));
+			Assert.That(portfolio["FP"].Weight, Is.EqualTo(0.33m));
+			Assert.That(portfolio["TLV"].Weight, Is.EqualTo(0.17m));
 		}
 
 		[Test]
@@ -67,9 +67,9 @@ namespace Investments.Domain.Tests.Portfolios
 			portfolioMock.Object.AddStock(new Stock("FP") { Count = 1, Price = 20 });
 			portfolioMock.Object.AddStock(new Stock("TLV") { Count = 1, Price = 10 });
 
-			Assert.AreEqual(0.5m, portfolioMock.Object["EL"].Weight);
-			Assert.AreEqual(0.33m, portfolioMock.Object["FP"].Weight);
-			Assert.AreEqual(0.17m, portfolioMock.Object["TLV"].Weight);
+			Assert.That(portfolioMock.Object["EL"].Weight, Is.EqualTo(0.5m));
+			Assert.That(portfolioMock.Object["FP"].Weight, Is.EqualTo(0.33m));
+			Assert.That(portfolioMock.Object["TLV"].Weight, Is.EqualTo(0.17m));
 
 			portfolioMock.Verify(p => p.RecalculateWeights(), Times.Once);
 		}
@@ -81,7 +81,7 @@ namespace Investments.Domain.Tests.Portfolios
 
 			portfolio.AddStock(new Stock("FP") { Count = 10, Price = 10 });
 
-			Assert.AreEqual(10, portfolio["FP"].Count);
+			Assert.That(portfolio["FP"].Count, Is.EqualTo(10));
 		}
 
 		[Test]
@@ -91,11 +91,11 @@ namespace Investments.Domain.Tests.Portfolios
 
 			portfolio.AddStock(new Stock("FP") { Count = 10, Price = 20 });
 
-			Assert.AreEqual(12, portfolio["FP"].Count);
+			Assert.That(portfolio["FP"].Count, Is.EqualTo(12));
 		}
 
 		[Test]
-		public void GetEnumarator_NoIndexerCalled_WeightsAreRefreshed()
+		public void GetEnumerator_NoIndexerCalled_WeightsAreRefreshed()
 		{
 			var portfolio = new Portfolio(new[]
 {
@@ -104,7 +104,7 @@ namespace Investments.Domain.Tests.Portfolios
 				new Stock("TLV") { Count = 1, Price = 10 }
 			});
 
-			Assert.IsFalse(portfolio.Any(s => s.Weight == 0));
+			Assert.That(portfolio.Any(s => s.Weight == 0), Is.False);
 		}
 	}
 }
