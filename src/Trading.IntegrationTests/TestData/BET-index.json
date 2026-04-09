@@ -1,122 +1,102 @@
 [
 	{
-		"Symbol": "TLV",
-		"Name": "BANCA TRANSILVANIA S.A.",
-		"Price": 36.5000,
-		"Weight": 0.2065
+		"symbol": "TLV",
+		"price": 28.4000,
+		"weight": 0.2057
 	},
 	{
-		"Symbol": "SNP",
-		"Name": "OMV PETROM S.A.",
-		"Price": 0.9990,
-		"Weight": 0.1583
+		"symbol": "SNP",
+		"price": 0.7305,
+		"weight": 0.1913
 	},
 	{
-		"Symbol": "SNG",
-		"Name": "S.N.G.N. ROMGAZ S.A.",
-		"Price": 12.0000,
-		"Weight": 0.1176
+		"symbol": "H2O",
+		"price": 122.1000,
+		"weight": 0.1539
 	},
 	{
-		"Symbol": "H2O",
-		"Name": "S.P.E.E.H. HIDROELECTRICA S.A.",
-		"Price": 152.2000,
-		"Weight": 0.1161
+		"symbol": "SNG",
+		"price": 5.3300,
+		"weight": 0.0863
 	},
 	{
-		"Symbol": "BRD",
-		"Name": "BRD - GROUPE SOCIETE GENERALE S.A.",
-		"Price": 29.8000,
-		"Weight": 0.0704
+		"symbol": "BRD",
+		"price": 19.1200,
+		"weight": 0.0747
 	},
 	{
-		"Symbol": "TGN",
-		"Name": "S.N.T.G.N. TRANSGAZ S.A.",
-		"Price": 88.1000,
-		"Weight": 0.0703
+		"symbol": "SNN",
+		"price": 43.7000,
+		"weight": 0.0369
 	},
 	{
-		"Symbol": "DIGI",
-		"Name": "Digi Communications N.V.",
-		"Price": 49.5000,
-		"Weight": 0.0489
+		"symbol": "DIGI",
+		"price": 64.4000,
+		"weight": 0.0361
 	},
 	{
-		"Symbol": "EL",
-		"Name": "SOCIETATEA ENERGETICA ELECTRICA S.A.",
-		"Price": 29.9000,
-		"Weight": 0.043
+		"symbol": "EL",
+		"price": 13.3200,
+		"weight": 0.0317
 	},
 	{
-		"Symbol": "M",
-		"Name": "MedLife S.A.",
-		"Price": 12.3400,
-		"Weight": 0.0389
+		"symbol": "TGN",
+		"price": 24.0000,
+		"weight": 0.0317
 	},
 	{
-		"Symbol": "SNN",
-		"Name": "S.N. NUCLEARELECTRICA S.A.",
-		"Price": 67.3000,
-		"Weight": 0.0344
+		"symbol": "M",
+		"price": 6.0300,
+		"weight": 0.0314
 	},
 	{
-		"Symbol": "TEL",
-		"Name": "C.N.T.E.E. TRANSELECTRICA",
-		"Price": 93.0000,
-		"Weight": 0.0231
+		"symbol": "ONE",
+		"price": 0.4735,
+		"weight": 0.0167
 	},
 	{
-		"Symbol": "PE",
-		"Name": "Premier Energy PLC",
-		"Price": 41.4000,
-		"Weight": 0.0132
+		"symbol": "TEL",
+		"price": 39.3000,
+		"weight": 0.0161
 	},
 	{
-		"Symbol": "FP",
-		"Name": "FONDUL PROPRIETATEA",
-		"Price": 0.5900,
-		"Weight": 0.0128
+		"symbol": "ATB",
+		"price": 3.1400,
+		"weight": 0.0148
 	},
 	{
-		"Symbol": "ONE",
-		"Name": "ONE UNITED PROPERTIES",
-		"Price": 30.0000,
-		"Weight": 0.0112
+		"symbol": "FP",
+		"price": 0.3138,
+		"weight": 0.0141
 	},
 	{
-		"Symbol": "AQ",
-		"Name": "AQUILA PART PROD COM",
-		"Price": 1.5550,
-		"Weight": 0.0079
+		"symbol": "TTS",
+		"price": 6.8100,
+		"weight": 0.012
 	},
 	{
-		"Symbol": "TRP",
-		"Name": "TERAPLAST SA",
-		"Price": 0.4790,
-		"Weight": 0.0061
+		"symbol": "AQ",
+		"price": 1.3900,
+		"weight": 0.0117
 	},
 	{
-		"Symbol": "TTS",
-		"Name": "TTS (TRANSPORT TRADE SERVICES)",
-		"Price": 5.3000,
-		"Weight": 0.0057
+		"symbol": "PE",
+		"price": 19.7400,
+		"weight": 0.0104
 	},
 	{
-		"Symbol": "SFG",
-		"Name": "Sphera Franchise Group",
-		"Price": 39.8000,
-		"Weight": 0.0052
+		"symbol": "SFG",
+		"price": 40.0000,
+		"weight": 0.0087
 	},
 	{
-		"Symbol": "ATB",
-		"Name": "ANTIBIOTICE S.A.",
-		"Price": 1.8300,
-		"Weight": 0.0052
+		"symbol": "TRP",
+		"price": 0.4575,
+		"weight": 0.0084
 	},
 	{
-		"Symbol": "CFH",
-		"Name": "CRIS-TIM FAMILY HOLDING",
-		"Price": 24.8000,
-		"Weight": 0.0051
+		"symbol": "WINE",
+		"price": 14.8800,
+		"weight": 0.0076
 	}
 ]
