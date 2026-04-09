@@ -34,7 +34,7 @@ namespace Investments.Advisor.AzureProxies
 			var result =
 				await _httpClient.PostAsync(
 					_functionUri,
-					new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
+					new StringContent(JsonSerializerHelper.Serialize(payload), Encoding.UTF8, "application/json"));
 
 			var stocks = JsonSerializerHelper.Deserialize<Stock[]>(await result.Content.ReadAsStringAsync());
 			
