@@ -1,11 +1,8 @@
+using System.Text.Json;
+using Azure.Core.Serialization;
 using Investments.Advisor.AzureProxies;
 using Investments.Advisor.Providers;
 using Investments.Advisor.Trading;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Net.Http;
 using Trading.BvbScraper;
 using Trading.Functions.Environments;
 
@@ -22,7 +19,11 @@ namespace Trading.Functions
 		public static void Main()
 			{
 				var host = new HostBuilder()
-					.ConfigureFunctionsWorkerDefaults()
+						.ConfigureFunctionsWorkerDefaults(worker =>
+						{
+							worker.Serializer = new JsonObjectSerializer(
+								new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+						})
 					.ConfigureServices(services =>
 					{
 						services.AddLogging();
